@@ -27,7 +27,21 @@ def generate():
     question = response.choices[0].message.content
 
     return jsonify({"question": question})
+@app.route("/run")
+def run():
+    language = "Python"
+    level = "easy"
 
+    prompt = f"Generate a {level} coding challenge in {language}. Only return the question."
+
+    response = client.chat.completions.create(
+        model="llama-3.1-8b-instant",
+        messages=[{"role":"user","content":prompt}]
+    )
+
+    question = response.choices[0].message.content
+
+    return {"question": question}
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)

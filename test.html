@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>AI Coding Question Generator</h2>
+
+<button onclick="generate()">Generate Question</button>
+
+<p id="result"></p>
+
+<script>
+async function generate() {
+  const response = await fetch("https://sumant-codegen1.onrender.com/generate", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      language: "Python",
+      level: "easy"
+    })
+  });
+
+  const data = await response.json();
+  document.getElementById("result").innerText = data.question;
+}
+</script>
+
+</body>
+</html>
